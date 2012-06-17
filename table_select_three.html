@@ -1,0 +1,194 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>My jqCalendar</title>
+
+    <style type="text/css" media="screen">
+        table {
+            border-right: 1px solid #999;
+            border-top: 1px solid #999;
+        }
+
+        table td {
+            width: 75px;
+            height: 75px;
+            text-align: center;
+            vertical-align: middle;
+            border-left: 1px solid #999;
+            border-bottom: 1px solid #999;
+            background-color: #fff;
+            color: #000;
+        }
+
+        table td.highlighted {
+            background-color: #999;
+        }
+
+        table td.available {
+            background-color: #9C9;
+        }
+
+        table td.booked {
+            background-color: #C99;
+        }
+
+        table td.cur_sel {
+            background-color: #99C;
+        }
+
+        table td.disabled {
+            color: #333;
+            background-color: #eee;
+        }
+
+        table td:hover {
+            /*background-color: #669;*/
+            background-color: #ccf;
+        }
+
+    </style>
+
+</head>
+<body>
+
+<table cellpadding="0" cellspacing="0" id="our_table">
+    <tr>
+        <td class="available">a</td>
+        <td class="booked">b</td>
+        <td>c</td>
+        <td>d</td>
+        <td>e</td>
+        <td>f</td>
+    </tr>
+    <tr>
+        <td>g</td>
+        <td>h</td>
+        <td>i</td>
+        <td>j</td>
+        <td>k</td>
+        <td>l</td>
+    </tr>
+    <tr>
+        <td>m</td>
+        <td>n</td>
+        <td>o</td>
+        <td class="disabled">p</td>
+        <td>q</td>
+        <td>r</td>
+    </tr>
+    <tr>
+        <td>s</td>
+        <td>t</td>
+        <td>u</td>
+        <td>v</td>
+        <td class="disabled">w</td>
+        <td class="disabled">x</td>
+    </tr>
+</table>
+
+<br/>
+
+<div>
+    <input type="button" class="makeAvailable" value="Make Selected Available"/>
+    <input type="button" class="makeBooked" value="Make Selected Booked"/>
+</div>
+
+
+<div id="info">
+    START
+    <span class="start"></span>
+    <br/>
+    END
+    <span class="end"></span>
+</div>
+
+<script type="text/javascript" src="jquery-1.7.2.js"></script>
+<script type="text/javascript" charset="utf-8">
+    $(function () {
+        $('.makeAvailable').click(function () {
+            $('td.cur_sel').addClass('available').removeClass('booked').removeClass('cur_sel');
+        });
+        $('.makeBooked').click(function () {
+            $('td.cur_sel').addClass('booked').removeClass('available').removeClass('cur_sel');
+        });
+
+        var onSelection = false;
+        var startCell = 0, endCell = 0;
+        var cellsSelector = "#our_table td", selectionClass = 'cur_sel', disabledClass = 'disabled';
+
+        $(document).mouseup(function () {
+            onSelection = false;
+        });
+
+        $(cellsSelector)
+                .mousedown(selectionMouseDown)
+                .mouseover(selectionMouseOver)
+                .bind("selectstart", function () {
+                    return false; // prevent text selection in IE
+                });
+
+        function selectionMouseDown(e) {
+            if (isRightClick(e)) {
+                return false;
+            } else {
+                onSelection = true;
+                startCell = endCell = $(cellsSelector).index($(this));
+                //resetSelection(cellsSelector, selectionClass, disabledClass);
+                return false; // prevent text selection
+            }
+        }
+
+        function selectionMouseOver(e) {
+            if (onSelection) {
+                endCell = $(cellsSelector).index($(this));
+                resetSelection(cellsSelector, selectionClass, disabledClass);
+            }
+        }
+
+        function resetSelection(cellsSelector, selectionClass, disabledClass) {
+            $(cellsSelector).removeClass(selectionClass);
+            if (endCell + 1 < startCell) { // reverse select
+                $(cellsSelector).slice(endCell, startCell + 1).addClass(selectionClass);
+            } else {
+                $(cellsSelector).slice(startCell, endCell + 1).addClass(selectionClass);
+            }
+            $(cellsSelector).filter('.'+disabledClass).removeClass(selectionClass);
+            $('#info .start').text($(this).text() + ' - ' + startCell);
+            $('#info .end').text($(this).text() + ' - ' + endCell);
+        }
+
+        function isRightClick(e) {
+            if (e.which) {
+                return (e.which == 3);
+            } else if (e.button) {
+                return (e.button == 2);
+            }
+            return false;
+        }
+
+    });
+    //$(cellsSelector)
+    //        .mousedown(function (e) {
+    //            if (isRightClick(e)) {
+    //                return false;
+    //            } else {
+    //                onSelection = true;
+    //                startCell = endCell = $(cellsSelector).index($(this));
+    //                //resetSelection(cellsSelector, selectionClass);
+    //                return false; // prevent text selection
+    //            }
+    //        })
+    //        .mouseover(function () {
+    //            if (onSelection) {
+    //                endCell = $(cellsSelector).index($(this));
+    //                resetSelection(cellsSelector, selectionClass);
+    //            }
+    //        })
+    //        .bind("selectstart", function () {
+    //            return false; // prevent text selection in IE
+    //        });
+
+</script>
+</body>
+</html>

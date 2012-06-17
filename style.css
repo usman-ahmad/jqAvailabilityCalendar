@@ -1,0 +1,115 @@
+.availability-calendar-div {
+    font-family: Helvetica, Verdana, Arial;
+    text-transform: uppercase;
+    width: 764px;
+    padding: 5px 30px;
+}
+
+.availability-calendar-header {
+    padding: 10px;
+    width: 742px;
+    border: 1px solid #999;
+}
+
+.availability-calendar-prev {
+    float: left;
+    cursor: pointer;
+}
+
+.availability-calendar-next {
+    float: right;
+    cursor: pointer;
+}
+
+.availability-calendar-title {
+    text-align: center;
+    display: block;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.availability-calendar-month {
+    padding-right: 5px;
+    color: #565656;
+}
+
+.availability-calendar-year {
+    padding-left: 5px;
+    color: #a8a8a8;
+}
+
+.availability-calendar-div table {
+    border-right: 1px solid #999;
+    cursor: default;
+}
+
+.availability-calendar-div th, .availability-calendar-div td {
+    border-left: 1px solid #999;
+    border-bottom: 1px solid #999;
+    width: 108px;
+    font-family: Helvetica, Verdana, Arial;
+    font-size: 14px;
+    text-transform: uppercase;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.availability-calendar-div th {
+    height: 50px;
+    background: #666;
+    color: #fff;
+}
+
+.availability-calendar-div td {
+    height: 72px;
+}
+
+.availability-calendar-div .other-month {
+    background: #eee;
+}
+
+.availability-calendar-div td.highlighted {
+    background-color: #999;
+}
+
+.availability-calendar-div td.available {
+    background-color: #9C9;
+}
+
+.availability-calendar-div td.booked {
+    background-color: #C99;
+}
+
+.availability-calendar-div td.selected-day {
+    background-color: #99C;
+}
+
+.availability-calendar-div td.other-month, .availability-calendar-div td.other-month:hover {
+    color: #333;
+    background-color: #eee;
+}
+
+.availability-calendar-div td:hover {
+    background-color: #ccf;
+}
+
+.availability-buttons {
+    padding-left: 200px;
+}
+
+.availability-buttons input {
+    width: 200px;
+    border: 2px solid #333;
+    padding: 10px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.availability-buttons input.makeAvailable {
+    background-color: #9C9;
+}
+
+.availability-buttons input.makeBooked {
+    background-color: #C99;
+}
+

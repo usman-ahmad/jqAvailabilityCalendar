@@ -1,0 +1,25 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>My jqCalendar</title>
+    <link rel="stylesheet" type="text/css" href="style_jqui_calendar.css" />
+</head>
+<body>
+
+<div id="calendar"></div>
+
+
+<script type="text/javascript" src="jquery-1.7.2.js"></script>
+<script type="text/javascript" src="jquery.ui.core.js"></script>
+<script type="text/javascript" src="jquery.ui.datepicker.js"></script>
+<script type="text/javascript">
+    $('#calendar').datepicker({
+        inline: true,
+        firstDay: 1,
+        showOtherMonths: true,
+        dayNamesMin: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
+    });
+</script>
+</body>
+</html>

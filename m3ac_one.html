@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>My jqCalendar</title>
+    <link rel="stylesheet" type="text/css" href="jquery.availability-calendar.css" />
+    <style>
+        td, th {
+            border-left: 1px solid #999;
+            border-bottom: 1px solid #999;
+            width: 120px;
+            padding: 10px 0;
+            text-align: center;
+        }
+
+        table {
+            border-right: 1px solid #999;
+            border-top: 1px solid #999;
+        }
+
+        th {
+            background: #666;
+            color: #fff;
+        }
+
+        .other-month {
+            background: #eee;
+        }
+    </style>
+</head>
+<body>
+
+<div id="calendar"></div>
+
+
+<script type="text/javascript" src="jquery-1.7.2.js"></script>
+<script type="text/javascript" src="jquery.availability-calendar_one.js"></script>
+<!--<script type="text/javascript" src="jquery.ui.core.js"></script>-->
+<!--<script type="text/javascript" src="jquery.ui.datepicker.js"></script>-->
+<script type="text/javascript">
+//    $('#calendar').datepicker({
+//        inline: true,
+//        firstDay: 1,
+//        showOtherMonths: true,
+//        dayNamesMin: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
+//    });
+    $("#calendar").availabilityCalendar({
+        month: 3,
+        year: 2012
+    });
+</script>
+</body>
+</html>

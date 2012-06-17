@@ -1,0 +1,38 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>My jQuery Availability Calendar</title>
+    <link rel="stylesheet" type="text/css" href="jquery.availability-calendar.css"/>
+</head>
+<body>
+
+<div id="calendar"></div>
+
+<script type="text/javascript" src="jquery-1.7.2.js"></script>
+<script type="text/javascript" src="jquery.availability-calendar.js"></script>
+<script type="text/javascript" src="jquery.cell-selectable.js"></script>
+<script type="text/javascript">
+    $(function () {
+        $("#calendar").availabilityCalendar({
+            month:3,
+            year:2012,
+            cellSelectable:true
+        });
+
+//        $('.makeAvailable').click(function () {
+//            $('.availability-calendar-div td.selected-day')
+//                    .addClass('available')
+//                    .removeClass('booked')
+//                    .removeClass('selected-day');
+//        });
+//        $('.makeBooked').click(function () {
+//            $('.availability-calendar-div td.selected-day')
+//                    .addClass('booked')
+//                    .removeClass('available')
+//                    .removeClass('selected-day');
+//        });
+    });
+</script>
+</body>
+</html>

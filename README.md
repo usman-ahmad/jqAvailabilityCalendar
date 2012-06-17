@@ -1,5 +1,5 @@
 jqAvailabilityCalendar
 ======================
 
-A jquery plugin Booking Calendar
+A jquery Booking Calendar plugin.
 
