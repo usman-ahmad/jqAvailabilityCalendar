@@ -12,7 +12,11 @@
             availableClass:'available',
             bookedClass:'booked',
             availableButtonText:'Make Selected Available',
-            bookedButtonText:'Make Selected Booked'
+            bookedButtonText:'Make Selected Booked',
+            onSelectedAvailable:function (selectedDays, month, year) {
+            },
+            onSelectedBooked:function (selectedDays, month, year) {
+            }
         }, params);
 
         var dayNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
@@ -31,10 +35,12 @@
 
         var m3header = $('<div class="availability-calendar-header"></div>')
             .append($('<span class="availability-calendar-prev" title="Previous Month">prev</span>').click(function () {
-            availabilityCalendar(el, {month:prev_m, year:prev_y});
+            //availabilityCalendar(el, {month:prev_m, year:prev_y});
+            availabilityCalendar(el, $.extend({}, settings, {month:prev_m, year:prev_y}));
         }))
             .append($('<span class="availability-calendar-next" title="Next Month">next</span>').click(function () {
-            availabilityCalendar(el, {month:next_m, year:next_y});
+            //availabilityCalendar(el, {month:next_m, year:next_y});
+            availabilityCalendar(el, $.extend({}, settings, {month:next_m, year:next_y}));
         }))
             .append($('<span class="availability-calendar-title"><span class="availability-calendar-month">' + monthNames[month] + '' +
             '</span><span class="availability-calendar-year">' + year + '</span></span>'));
@@ -73,6 +79,10 @@
                 $('<input type="button" class="makeAvailable"/>')
                     .val(settings.availableButtonText)
                     .click(function () {
+                        var sa = m3tableJQ.find('td').filter('.' + settings.selectionClass).map(function (i, se) {
+                            return m3tableJQ.find('td').index(se) - m3tableJQ.find('td').index($('.day1')) + 1;
+                        });
+                        settings.onSelectedAvailable(sa, month, year);
                         //$('.availability-calendar-div td').filter('.' + settings.selectionClass);
                         m3tableJQ.find('td').filter('.' + settings.selectionClass)
                             .addClass(settings.availableClass)
@@ -84,6 +94,10 @@
                 $('<input type="button" class="makeBooked"/>')
                     .val(settings.bookedButtonText)
                     .click(function () {
+                        var sa = m3tableJQ.find('td').filter('.' + settings.selectionClass).map(function (i, se) {
+                            return m3tableJQ.find('td').index(se) - m3tableJQ.find('td').index($('.day1')) + 1;
+                        });
+                        settings.onSelectedBooked(sa, month, year);
                         m3tableJQ.find('td').filter('.' + settings.selectionClass)
                             .addClass(settings.bookedClass)
                             .removeClass(settings.availableClass)

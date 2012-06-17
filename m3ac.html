@@ -17,7 +17,15 @@
         $("#calendar").availabilityCalendar({
             month:3,
             year:2012,
-            cellSelectable:true
+            cellSelectable:true,
+            onSelectedAvailable:function (selectedDays, month, year) {
+                alert('available here => month:' + month + ', year:' + year);
+                console.log(['available', selectedDays, month, year]);
+            },
+            onSelectedBooked:function (selectedDays, month, year) {
+                alert('booked here => month:' + month + ', year:' + year);
+                console.log(['booked', selectedDays.get(), month, year]);
+            }
         });
 
 //        $('.makeAvailable').click(function () {
