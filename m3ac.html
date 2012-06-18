@@ -14,17 +14,41 @@
 <script type="text/javascript" src="jquery.cell-selectable.js"></script>
 <script type="text/javascript">
     $(function () {
-        $("#calendar").availabilityCalendar({
-            month:3,
+        var myAC = $("#calendar").availabilityCalendar({
+            month:3 - 1,
             year:2012,
             cellSelectable:true,
+            dayStatuses:[
+                {day:25, status:'available'},
+                {day:10, status:'available'},
+                {day:20, status:'booked'},
+                {day:5, status:'booked'}
+            ],
             onSelectedAvailable:function (selectedDays, month, year) {
-                alert('available here => month:' + month + ', year:' + year);
+                //alert('available here => month:' + month + ', year:' + year);
+                myAC.setStatuses([
+                    {day:Math.ceil(Math.random() * 28), status:'available'},
+                    {day:Math.ceil(Math.random() * 28), status:'available'},
+                    {day:Math.ceil(Math.random() * 28), status:'booked'}
+                ]);
                 console.log(['available', selectedDays, month, year]);
             },
             onSelectedBooked:function (selectedDays, month, year) {
-                alert('booked here => month:' + month + ', year:' + year);
+                //alert('booked here => month:' + month + ', year:' + year);
+                myAC.setStatuses([
+                    {day:Math.ceil(Math.random() * 28), status:'available'},
+                    {day:Math.ceil(Math.random() * 28), status:'booked'},
+                    {day:Math.ceil(Math.random() * 28), status:'booked'}
+                ]);
                 console.log(['booked', selectedDays.get(), month, year]);
+            },
+            onMonthChange:function (month, year) {
+                //alert('Month Change => month:' + month + ', year:' + year);
+                myAC.setStatuses([
+                    {day:Math.ceil(Math.random() * 28), status:'available'},
+                    {day:Math.ceil(Math.random() * 28), status:'booked'}
+                ]);
+                console.log(['MonthChange', month, year]);
             }
         });
 

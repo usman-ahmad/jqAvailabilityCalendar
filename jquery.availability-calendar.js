@@ -9,6 +9,7 @@
             cellSelectable:true,
             selectionClass:'selected-day',
             disabledClass:'other-month',
+            dayStatuses:[],
             availableClass:'available',
             bookedClass:'booked',
             availableButtonText:'Make Selected Available',
@@ -16,6 +17,8 @@
             onSelectedAvailable:function (selectedDays, month, year) {
             },
             onSelectedBooked:function (selectedDays, month, year) {
+            },
+            onMonthChange:function (month, year) {
             }
         }, params);
 
@@ -36,11 +39,13 @@
         var m3header = $('<div class="availability-calendar-header"></div>')
             .append($('<span class="availability-calendar-prev" title="Previous Month">prev</span>').click(function () {
             //availabilityCalendar(el, {month:prev_m, year:prev_y});
-            availabilityCalendar(el, $.extend({}, settings, {month:prev_m, year:prev_y}));
+            availabilityCalendar(el, $.extend({}, settings, {month:prev_m, year:prev_y, dayStatuses:[]}));
+            settings.onMonthChange(prev_m, prev_y);
         }))
             .append($('<span class="availability-calendar-next" title="Next Month">next</span>').click(function () {
             //availabilityCalendar(el, {month:next_m, year:next_y});
-            availabilityCalendar(el, $.extend({}, settings, {month:next_m, year:next_y}));
+            availabilityCalendar(el, $.extend({}, settings, {month:next_m, year:next_y, dayStatuses:[]}));
+            settings.onMonthChange(next_m, next_y);
         }))
             .append($('<span class="availability-calendar-title"><span class="availability-calendar-month">' + monthNames[month] + '' +
             '</span><span class="availability-calendar-year">' + year + '</span></span>'));
@@ -84,10 +89,8 @@
                         });
                         settings.onSelectedAvailable(sa, month, year);
                         //$('.availability-calendar-div td').filter('.' + settings.selectionClass);
-                        m3tableJQ.find('td').filter('.' + settings.selectionClass)
-                            .addClass(settings.availableClass)
-                            .removeClass(settings.bookedClass)
-                            .removeClass(settings.selectionClass);
+                        //m3tableJQ.find('td').filter('.' + settings.selectionClass).addClass(settings.availableClass).removeClass(settings.bookedClass).removeClass(settings.selectionClass);
+                        m3tableJQ.find('td').removeClass(settings.selectionClass);
                     })
             ).append(' ');
             availBtnDiv.append(
@@ -98,14 +101,23 @@
                             return m3tableJQ.find('td').index(se) - m3tableJQ.find('td').index($('.day1')) + 1;
                         });
                         settings.onSelectedBooked(sa, month, year);
-                        m3tableJQ.find('td').filter('.' + settings.selectionClass)
-                            .addClass(settings.bookedClass)
-                            .removeClass(settings.availableClass)
-                            .removeClass(settings.selectionClass);
+                        //m3tableJQ.find('td').filter('.' + settings.selectionClass).addClass(settings.bookedClass).removeClass(settings.availableClass).removeClass(settings.selectionClass);
+                        m3tableJQ.find('td').removeClass(settings.selectionClass);
                     })
             );
         }
         el.html($('<div class="availability-calendar-div">').html(m3tableJQ).prepend(m3header)).append(availBtnDiv);
+        el.setStatuses = function (dayStatuses) {
+            $('td.current-month', el).removeClass(settings.bookedClass).removeClass(settings.availableClass);
+            //console.log(['availabilityCalendar.setStatuses', dayStatuses]);
+            $.each(dayStatuses, function (i, dayStatus) {
+                if(dayStatus.status == 'available')
+                    var v = $('td.current-month.day' + dayStatus.day, el).addClass(settings.availableClass);
+                else if (dayStatus.status == 'booked')
+                    $('td.current-month.day' + dayStatus.day, el).addClass(settings.bookedClass);
+            });
+        }
+        el.setStatuses(settings.dayStatuses);
     }
 
     function getDaysInMonth(month, year) {
